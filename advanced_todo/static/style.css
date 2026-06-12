@@ -1,0 +1,1266 @@
+/* ==========================================================================
+   Apple-Inspired Minimalist Design System (To Do List)
+   ========================================================================== */
+
+:root {
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    
+    /* Apple Dark Theme Colors (OLED-friendly true black & dark grays) */
+    --bg-primary: #000000;
+    --bg-secondary: #1c1c1e;
+    --bg-tertiary: #2c2c2e;
+    
+    --text-primary: #ffffff;
+    --text-secondary: #8e8e93;
+    --text-muted: #48484a;
+    
+    --border-thin: rgba(255, 255, 255, 0.09);
+    --border-heavy: rgba(255, 255, 255, 0.15);
+    
+    /* Apple Reminders Color Palette */
+    --system-blue: #0a84ff;
+    --system-red: #ff453a;
+    --system-orange: #ff9f0a;
+    --system-green: #30d158;
+    --system-purple: #bf5af2;
+    --system-yellow: #ffd60a;
+    --system-gray: #8e8e93;
+    
+    --primary: var(--system-blue);
+    --success: var(--system-green);
+    --warning: var(--system-orange);
+    --danger: var(--system-red);
+    --info: var(--system-purple);
+    
+    --sidebar-width: 260px;
+    --border-radius-sm: 8px;
+    --border-radius-md: 12px;
+    --border-radius-lg: 18px;
+    --border-radius-circle: 50%;
+    
+    --transition-fast: 0.12s ease-in-out;
+    --transition-normal: 0.24s cubic-bezier(0.25, 1, 0.5, 1);
+    
+    --card-shadow: 0 4px 18px rgba(0, 0, 0, 0.2);
+}
+
+/* Apple Light Theme Colors */
+body.light-theme {
+    --bg-primary: #f2f2f7;
+    --bg-secondary: #ffffff;
+    --bg-tertiary: #e5e5ea;
+    
+    --text-primary: #000000;
+    --text-secondary: #8e8e93;
+    --text-muted: #c7c7cc;
+    
+    --border-thin: rgba(0, 0, 0, 0.08);
+    --border-heavy: rgba(0, 0, 0, 0.12);
+    
+    --system-blue: #007aff;
+    --system-red: #ff3b30;
+    --system-orange: #ff9500;
+    --system-green: #34c759;
+    --system-purple: #af52de;
+    --system-yellow: #ffcc00;
+    --system-gray: #8e8e93;
+    
+    --card-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+}
+
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    overflow-x: hidden;
+    transition: background-color var(--transition-normal), color var(--transition-normal);
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--border-heavy);
+    border-radius: 10px;
+}
+
+/* Layout Container */
+.app-container {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Apple Flat Containers */
+.glass-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-thin);
+    box-shadow: var(--card-shadow);
+    border-radius: var(--border-radius-md);
+    overflow: hidden;
+    transition: background-color var(--transition-normal), border-color var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+/* ==========================================================================
+   Sidebar (Clean macOS Style Left Panel)
+   ========================================================================== */
+.sidebar {
+    width: var(--sidebar-width);
+    background-color: var(--bg-primary);
+    border-right: 1px solid var(--border-thin);
+    display: flex;
+    flex-direction: column;
+    padding: 24px 18px;
+    height: 100%;
+    flex-shrink: 0;
+    z-index: 10;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 24px;
+    padding-left: 6px;
+}
+
+.logo-icon {
+    width: 28px;
+    height: 28px;
+    background: var(--primary);
+    border-radius: var(--border-radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-icon i {
+    color: #ffffff;
+    font-size: 0.95rem;
+}
+
+.brand h1 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    color: var(--text-primary);
+}
+
+.sidebar-section {
+    margin-bottom: 24px;
+}
+
+.section-title {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 12px;
+}
+
+.sidebar-menu {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 12px;
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.92rem;
+    color: var(--text-primary);
+    transition: var(--transition-fast);
+    position: relative;
+}
+
+.menu-item i {
+    font-size: 0.95rem;
+    width: 20px;
+    text-align: center;
+    color: var(--primary); /* Accent items icon color */
+}
+
+/* Sidebar Specific Icons overrides like Reminders */
+.menu-item[data-filter="today"] i { color: var(--system-blue); }
+.menu-item[data-filter="upcoming"] i { color: var(--system-red); }
+.menu-item[data-filter="overdue"] i { color: var(--system-orange); }
+.menu-item[data-filter="completed"] i { color: var(--system-gray); }
+
+.menu-item:hover {
+    background-color: var(--bg-secondary);
+}
+
+.menu-item.active {
+    background-color: var(--bg-tertiary);
+}
+
+.badge {
+    margin-left: auto;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    padding: 0 4px;
+}
+
+.menu-item.active .badge {
+    color: var(--text-primary);
+    font-weight: 700;
+}
+
+.category-delete-btn {
+    opacity: 0;
+    margin-left: 8px;
+    color: var(--text-secondary);
+    transition: var(--transition-fast);
+}
+
+.menu-item:hover .category-delete-btn {
+    opacity: 1;
+}
+
+.category-delete-btn:hover {
+    color: var(--system-red);
+}
+
+.sidebar-footer {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    border-top: 1px solid var(--border-thin);
+    padding-top: 18px;
+}
+
+.btn-sidebar-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px;
+    width: 100%;
+    border-radius: var(--border-radius-sm);
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-thin);
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.btn-sidebar-toggle:hover {
+    background-color: var(--bg-tertiary);
+}
+
+.data-actions {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 6px;
+}
+
+.btn-text {
+    background: none;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: var(--transition-fast);
+}
+
+.btn-text:hover {
+    color: var(--primary);
+}
+
+/* ==========================================================================
+   Main Content Layout
+   ========================================================================== */
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow-y: auto;
+    padding: 40px;
+    background-color: var(--bg-secondary);
+}
+
+body.light-theme .main-content {
+    background-color: #ffffff;
+}
+
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+    gap: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-thin);
+}
+
+.search-bar-container {
+    position: relative;
+    width: 100%;
+    max-width: 320px;
+}
+
+.search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+
+#search-input {
+    width: 100%;
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-thin);
+    padding: 8px 12px 8px 36px;
+    border-radius: var(--border-radius-sm);
+    color: var(--text-primary);
+    font-size: 0.88rem;
+    transition: var(--transition-fast);
+}
+
+#search-input:focus {
+    border-color: var(--primary);
+    background-color: var(--bg-primary);
+}
+
+body.light-theme #search-input {
+    background-color: var(--bg-tertiary);
+}
+
+body.light-theme #search-input:focus {
+    background-color: #ffffff;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.sort-container {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.sort-container select {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-thin);
+    padding: 6px 12px;
+    border-radius: var(--border-radius-sm);
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    cursor: pointer;
+    font-weight: 500;
+    transition: var(--transition-fast);
+}
+
+body.light-theme .sort-container select {
+    background-color: var(--bg-secondary);
+}
+
+.sort-container select:focus {
+    border-color: var(--primary);
+}
+
+/* Button UI */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 16px;
+    font-weight: 600;
+    font-size: 0.88rem;
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    opacity: 0.9;
+}
+
+.btn-secondary {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-thin);
+}
+
+body.light-theme .btn-secondary {
+    background-color: var(--bg-primary);
+}
+
+.btn-secondary:hover {
+    background-color: var(--bg-tertiary);
+}
+
+.btn-danger {
+    background-color: var(--system-red);
+    color: #ffffff;
+}
+
+.btn-danger:hover {
+    opacity: 0.9;
+}
+
+.btn-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: var(--border-radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: transparent;
+    color: var(--text-secondary);
+    transition: var(--transition-fast);
+}
+
+.btn-icon:hover {
+    color: var(--text-primary);
+    background-color: var(--border-thin);
+}
+
+.btn-small {
+    padding: 4px 8px;
+    font-size: 0.78rem;
+}
+
+/* ==========================================================================
+   Dashboard Stats (Apple Reminders Style Grid Widgets)
+   ========================================================================== */
+.dashboard-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 28px;
+}
+
+.stat-card {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    border-radius: var(--border-radius-md);
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-thin);
+}
+
+body.light-theme .stat-card {
+    background-color: var(--bg-primary);
+}
+
+.stat-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--border-radius-circle);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+}
+
+.circle-blue { background-color: rgba(10, 132, 255, 0.15); color: var(--system-blue); }
+.circle-orange { background-color: rgba(255, 159, 10, 0.15); color: var(--system-orange); }
+.circle-red { background-color: rgba(255, 69, 58, 0.15); color: var(--system-red); }
+.circle-green { background-color: rgba(48, 209, 88, 0.15); color: var(--system-green); }
+
+.stat-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.stat-value {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-top: 2px;
+}
+
+.stat-progress-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 6px;
+}
+
+.stat-progress-wrapper .stat-value {
+    font-size: 1.4rem;
+}
+
+.progress-bar-container {
+    width: 100%;
+    height: 4px;
+    background-color: var(--border-thin);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background-color: var(--primary);
+    border-radius: 2px;
+    transition: width var(--transition-normal);
+}
+
+/* ==========================================================================
+   Content Grid Layout
+   ========================================================================== */
+.content-body {
+    display: grid;
+    grid-template-columns: 1fr 260px;
+    gap: 28px;
+    align-items: start;
+}
+
+@media (max-width: 900px) {
+    .content-body {
+        grid-template-columns: 1fr;
+    }
+}
+
+.task-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 14px;
+    padding-left: 4px;
+}
+
+.section-header h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+}
+
+.task-count {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+}
+
+/* Tasks list container */
+.tasks-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 48px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: 1px dashed var(--border-heavy);
+    border-radius: var(--border-radius-md);
+}
+
+.empty-illustration {
+    font-size: 2.2rem;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+    opacity: 0.5;
+}
+
+.empty-state h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.empty-state p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 14px;
+}
+
+/* ==========================================================================
+   Apple Checkbox & Task Card
+   ========================================================================== */
+.task-card {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-thin);
+    border-radius: var(--border-radius-md);
+    box-shadow: none;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+body.light-theme .task-card {
+    background-color: var(--bg-primary);
+}
+
+.task-card:hover {
+    border-color: var(--border-heavy);
+}
+
+.task-card.completed {
+    opacity: 0.55;
+}
+
+.task-card-main {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+/* Checkbox (Apple Circle Style) */
+.checkbox-container {
+    display: block;
+    position: relative;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    user-select: none;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: transparent;
+    border: 1.5px solid var(--text-secondary);
+    border-radius: var(--border-radius-circle);
+    transition: var(--transition-fast);
+}
+
+/* Checkbox border colored dynamically by Priority */
+.task-card .checkbox-container:hover input ~ .checkmark {
+    border-color: var(--primary);
+}
+
+.task-card.completed .checkmark {
+    background-color: var(--success);
+    border-color: var(--success);
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.checkbox-container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.checkbox-container .checkmark:after {
+    left: 6.5px;
+    top: 3px;
+    width: 4px;
+    height: 8px;
+    border: solid #ffffff;
+    border-width: 0 1.8px 1.8px 0;
+    transform: rotate(45deg);
+}
+
+/* Apply priority-colored borders to checkboxes if task is pending */
+.task-card:not(.completed) .meta-pill.pill-high ~ .checkbox-container .checkmark,
+.task-card:not(.completed) [class*="pill-high"] ~ * .checkmark {
+    border-color: var(--system-red);
+}
+
+.task-card:not(.completed) .meta-pill.pill-medium ~ .checkbox-container .checkmark,
+.task-card:not(.completed) [class*="pill-medium"] ~ * .checkmark {
+    border-color: var(--system-orange);
+}
+
+.task-card:not(.completed) .meta-pill.pill-low ~ .checkbox-container .checkmark,
+.task-card:not(.completed) [class*="pill-low"] ~ * .checkmark {
+    border-color: var(--system-purple);
+}
+
+.task-card-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.task-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.task-card.completed .task-title {
+    text-decoration: line-through;
+    color: var(--text-secondary);
+}
+
+.task-desc {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    line-height: 1.35;
+    word-break: break-word;
+}
+
+/* Meta pills inside card */
+.task-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-top: 2px;
+}
+
+.meta-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    font-size: 0.72rem;
+    font-weight: 500;
+    border-radius: 4px;
+    background-color: var(--bg-tertiary);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-thin);
+}
+
+.pill-high {
+    color: var(--system-red) !important;
+}
+
+.pill-medium {
+    color: var(--system-orange) !important;
+}
+
+.pill-low {
+    color: var(--system-purple) !important;
+}
+
+.pill-overdue {
+    color: var(--system-red) !important;
+    font-weight: 700;
+}
+
+.task-actions {
+    display: flex;
+    gap: 4px;
+    align-self: flex-start;
+}
+
+.card-progress-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    padding-left: 32px;
+}
+
+/* Checklist Steps (Apple style indentation) */
+.checklist-wrapper {
+    border-top: 1px solid var(--border-thin);
+    padding-top: 10px;
+    padding-left: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.checklist-title {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.subtasks-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.subtask-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: var(--text-primary);
+}
+
+.subtask-item.completed {
+    color: var(--text-secondary);
+    text-decoration: line-through;
+}
+
+.subtask-checkbox {
+    width: 15px;
+    height: 15px;
+    border-radius: var(--border-radius-circle);
+    cursor: pointer;
+    accent-color: var(--success);
+}
+
+.subtask-delete-btn {
+    opacity: 0;
+    margin-left: auto;
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    background: none;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.subtask-item:hover .subtask-delete-btn {
+    opacity: 1;
+}
+
+.subtask-delete-btn:hover {
+    color: var(--system-red);
+}
+
+/* Quick Add checklist steps row */
+.card-subtask-quick-add {
+    display: flex;
+    padding-left: 32px;
+    margin-top: 2px;
+}
+
+.card-subtask-quick-add input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1.5px solid var(--border-thin);
+    padding: 4px 0;
+    font-size: 0.8rem;
+    color: var(--text-primary);
+    transition: var(--transition-fast);
+}
+
+.card-subtask-quick-add input:focus {
+    border-bottom-color: var(--primary);
+}
+
+/* ==========================================================================
+   Productivity Insights Panel
+   ========================================================================== */
+.insights-panel {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-thin);
+    border-radius: var(--border-radius-md);
+}
+
+body.light-theme .insights-panel {
+    background-color: var(--bg-primary);
+}
+
+.insights-panel h3 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.panel-header {
+    border-bottom: 1px solid var(--border-thin);
+    padding-bottom: 8px;
+}
+
+.chart-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.chart-container h4 {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Donut Chart visual */
+.custom-chart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.donut-chart {
+    width: 110px;
+    height: 110px;
+    transform: rotate(-90deg);
+}
+
+.donut-bg {
+    fill: none;
+    stroke: var(--border-thin);
+    stroke-width: 6;
+}
+
+.donut-segment {
+    fill: none;
+    stroke-width: 6;
+    stroke-linecap: round;
+    transition: stroke-dasharray var(--transition-normal);
+}
+
+.donut-high { stroke: var(--system-red); }
+.donut-medium { stroke: var(--system-orange); }
+.donut-low { stroke: var(--system-purple); }
+
+.chart-text {
+    fill: var(--text-primary);
+    font-size: 20px;
+    font-weight: 700;
+    text-anchor: middle;
+    transform: rotate(90deg);
+    transform-origin: center;
+}
+
+.chart-subtext {
+    fill: var(--text-secondary);
+    font-size: 6px;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-anchor: middle;
+    transform: rotate(90deg);
+    transform-origin: center;
+}
+
+.chart-legend {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.legend-color {
+    width: 6px;
+    height: 6px;
+    border-radius: var(--border-radius-circle);
+}
+
+.legend-color.high { background-color: var(--system-red); }
+.legend-color.medium { background-color: var(--system-orange); }
+.legend-color.low { background-color: var(--system-purple); }
+
+/* Horizontal Bar chart categories */
+.bar-chart-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.category-bar-row {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.category-bar-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.category-bar {
+    height: 4px;
+    background-color: var(--border-thin);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.category-bar-fill {
+    height: 100%;
+    background-color: var(--system-blue);
+    border-radius: 2px;
+    transition: width var(--transition-normal);
+}
+
+/* ==========================================================================
+   Modals (Clean Apple OS dialogs layout)
+   ========================================================================== */
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition-normal);
+}
+
+.modal-backdrop.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-card {
+    width: 100%;
+    max-width: 480px;
+    padding: 24px;
+    border: 1px solid var(--border-heavy);
+    transform: scale(1.02);
+    transition: transform var(--transition-normal);
+}
+
+.modal-backdrop.show .modal-card {
+    transform: scale(1);
+}
+
+.modal-small {
+    max-width: 360px;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.modal-header h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="datetime-local"],
+.form-group select,
+.form-group textarea {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-thin);
+    padding: 8px 12px;
+    border-radius: var(--border-radius-sm);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    transition: var(--transition-fast);
+}
+
+body.light-theme .form-group input[type="text"],
+body.light-theme .form-group input[type="datetime-local"],
+body.light-theme .form-group select,
+body.light-theme .form-group textarea {
+    background-color: var(--bg-secondary);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--primary);
+}
+
+.form-row {
+    display: flex;
+    gap: 12px;
+}
+
+.half-width {
+    flex: 1;
+}
+
+/* Builder steps list */
+.subtask-builder-row {
+    display: flex;
+    gap: 8px;
+}
+
+.builder-subtask-list {
+    margin-top: 8px;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-height: 100px;
+    overflow-y: auto;
+}
+
+.builder-subtask-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--bg-primary);
+    padding: 6px 12px;
+    border-radius: var(--border-radius-sm);
+    font-size: 0.8rem;
+    border: 1px solid var(--border-thin);
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 24px;
+    border-top: 1px solid var(--border-thin);
+    padding-top: 16px;
+}
+
+/* ==========================================================================
+   Toast Notifications System
+   ========================================================================== */
+.notifications-container {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 1000;
+}
+
+.toast {
+    background-color: var(--bg-secondary);
+    border-left: 3px solid var(--primary);
+    border-top: 1px solid var(--border-thin);
+    border-right: 1px solid var(--border-thin);
+    border-bottom: 1px solid var(--border-thin);
+    box-shadow: var(--card-shadow);
+    padding: 10px 18px;
+    border-radius: var(--border-radius-sm);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    font-weight: 500;
+    min-width: 220px;
+    animation: slideIn 0.2s ease-out forwards;
+}
+
+.toast-success { border-left-color: var(--success); }
+.toast-error { border-left-color: var(--danger); }
+.toast-info { border-left-color: var(--primary); }
+
+@keyframes slideIn {
+    from {
+        transform: translateY(12px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.toast-fade-out {
+    animation: fadeOut 0.2s ease-in forwards;
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+}
